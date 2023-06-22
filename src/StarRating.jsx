@@ -11,14 +11,14 @@ const starContainer = {
   display: "flex",
 };
 
-StarRating.PorpTypes = {
-  maxRating: PorpTypes.number,
-  defaultRating: PorpTypes.number,
-  color: PorpTypes.string,
-  size: PorpTypes.number,
-  messages: PorpTypes.array,
-  className: PorpTypes.string,
-};
+// StarRating.PorpTypes = {
+//   maxRating: PorpTypes.number,
+//   defaultRating: PorpTypes.number,
+//   color: PorpTypes.string,
+//   size: PorpTypes.number,
+//   messages: PorpTypes.array,
+//   className: PorpTypes.string,
+// };
 
 const StarRating = ({
   maxRating = 5,
