@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PorpTypes from "prop-types";
 
 const containerStyle = {
   display: "flex",
@@ -8,6 +9,15 @@ const containerStyle = {
 
 const starContainer = {
   display: "flex",
+};
+
+StarRating.PorpTypes = {
+  maxRating: PorpTypes.number,
+  defaultRating: PorpTypes.number,
+  color: PorpTypes.string,
+  size: PorpTypes.number,
+  messages: PorpTypes.array,
+  className: PorpTypes.string,
 };
 
 const StarRating = ({
