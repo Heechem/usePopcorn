@@ -50,7 +50,7 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 const KEY = `199009af`;
-const query = "inception";
+const query = "kjbjhbjh";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
@@ -65,14 +65,16 @@ export default function App() {
           `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
         );
 
-        if (res.ok) throw new Error("Something went wrong, please try again");
+        if (!res.ok) throw new Error("Something went wrong, please try again");
 
         const data = await res.json();
+        if (data.Response === "False") throw new Error("Movie not found");
         setMovies(data.Search);
-        setIsloading(false);
       } catch (err) {
         console.log(err.message);
         setError(err.message);
+      } finally {
+        setIsloading(false);
       }
     }
     fetchMovies();
