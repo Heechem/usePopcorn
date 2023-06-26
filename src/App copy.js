@@ -60,7 +60,7 @@ export default function App() {
   const [error, setError] = useState("");
 
   function handleSelectMovie(id) {
-    setSelectedIt(id);
+    setSelectedIt((selectedId) => (id === selectedId ? null : id));
   }
 
   function handleCloseMovie() {
