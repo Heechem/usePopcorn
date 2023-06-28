@@ -93,6 +93,7 @@ export default function App() {
         const data = await res.json();
         if (data.Response === "False") throw new Error("Movie not found");
         setMovies(data.Search);
+        setError("");
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err.message);
@@ -312,6 +313,19 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+  useEffect(() => {
+    const callBack = (e) => {
+      if (e.code === "Escape") {
+        onCloseMovie();
+        console.log(123);
+      }
+    };
+    document.addEventListener("keydown", callBack);
+    return () => {
+      document.removeEventListener("keydown", callBack);
+    };
+  }, [onCloseMovie]);
+
   useEffect(
     function () {
       async function getSelectedMovie() {
