@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PorpTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const containerStyle = {
   display: "flex",
@@ -11,13 +11,14 @@ const starContainer = {
   display: "flex",
 };
 
-// StarRating.PorpTypes = {
-//   maxRating: PorpTypes.number,
-//   defaultRating: PorpTypes.number,
-//   color: PorpTypes.string,
-//   size: PorpTypes.number,
-//   messages: PorpTypes.array,
-//   className: PorpTypes.string,
+// StarRating.prototypes = {
+//   maxRating: PropTypes.number,
+//   defaultRating: PropTypes.number,
+//   color: PropTypes.string,
+//   size: PropTypes.number,
+//   messages: PropTypes.array,
+//   className: PropTypes.string,
+//   onSetRating: PropTypes.func,
 // };
 
 const StarRating = ({
@@ -26,9 +27,14 @@ const StarRating = ({
   size = 48,
   messages = [],
   defaultRating = 0,
+  onSetRating,
 }) => {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
+  function handleRating(rating) {
+    setRating(rating);
+    onSetRating(rating);
+  }
 
   const textStyle = {
     lineHeight: "1",
@@ -43,7 +49,7 @@ const StarRating = ({
         {Array.from({ length: maxRating }, (_, i) => (
           <Star
             key={i}
-            onRate={() => setRating(i + 1)}
+            onRate={() => handleRating(i + 1)}
             full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
             onHoverIn={() => setTempRating(i + 1)}
             onHoverOut={() => setTempRating(0)}

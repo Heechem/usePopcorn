@@ -51,7 +51,7 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 const KEY = `199009af`;
-const tempQuery = "inception";
+
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
@@ -67,6 +67,11 @@ export default function App() {
   function handleCloseMovie() {
     setSelectedIt(null);
   }
+
+  function handleAddWatched(movie) {
+    setWatched((watched) => [...watched, movie]);
+  }
+
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -123,6 +128,8 @@ export default function App() {
             <SelectedMovie
               selectedId={selectedId}
               onCloseMovie={handleCloseMovie}
+              onAddWatched={handleAddWatched}
+              watched={watched}
             />
           ) : (
             <>
@@ -253,9 +260,13 @@ const Movie = ({ movie, onSelectMovie }) => {
   );
 };
 
-const SelectedMovie = ({ selectedId, onCloseMovie }) => {
+const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [userRating, setUserRating] = useState();
+
+  const isWatched = watched.map((mo) => mo.imdbID).includes(selectedId);
+  console.log(isWatched);
 
   const {
     Title: title,
@@ -269,6 +280,20 @@ const SelectedMovie = ({ selectedId, onCloseMovie }) => {
     Director: director,
     Genre: genre,
   } = movie;
+  function handleAddWatched() {
+    const newWatchedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+      userRating,
+    };
+
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
+  }
   useEffect(
     function () {
       async function getSelectedMovie() {
@@ -316,10 +341,25 @@ const SelectedMovie = ({ selectedId, onCloseMovie }) => {
 
           <section>
             <div className="rating">
-              <StarRating
-                maxRating={10}
-                size={24}
-              />
+              {!isWatched ? (
+                <>
+                  <StarRating
+                    maxRating={10}
+                    size={24}
+                    onSetRating={setUserRating}
+                  />
+                  {userRating > 0 && (
+                    <button
+                      className="btn-add"
+                      onClick={handleAddWatched}
+                    >
+                      Add to list
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p>You already rated the movie</p>
+              )}
             </div>
 
             <p>
@@ -381,10 +421,10 @@ const WatchedMovie = ({ movie }) => {
   return (
     <li>
       <img
-        src={movie.Poster}
-        alt={`${movie.Title} poster`}
+        src={movie.poster}
+        alt={`${movie.title} poster`}
       />
-      <h3>{movie.Title}</h3>
+      <h3>{movie.title}</h3>
       <div>
         <p>
           <span>⭐️</span>
