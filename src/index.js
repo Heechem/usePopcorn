@@ -3,12 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from "./App";
 import StarRating from "./StarRating";
-import AppCopyV2 from "./App copy";
+import AppCopyV2 from "./AppCopy";
+import AppCopy from "./AppCopy";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AppCopyV2 />
+    <AppCopy />
     {/* <App /> */}
     {/* <StarRating
       maxRating={5}
