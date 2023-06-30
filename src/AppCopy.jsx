@@ -11,7 +11,6 @@ export default function App() {
   const [isLoading, setIsloading] = useState(false);
   const [selectedId, setSelectedIt] = useState(null);
   const [error, setError] = useState("");
-  // const [watched, setWatched] = useState([]);
 
   const [watched, setWatched] = useState(function () {
     const storedMovie = localStorage.getItem("watched");
@@ -151,7 +150,7 @@ const Search = ({ query, setQuery }) => {
 
     document.addEventListener("keydown", callback);
     return () => document.addEventListener("keydown", callback);
-  }, []);
+  }, [setQuery]);
   return (
     <input
       className="search"
@@ -240,6 +239,12 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState();
 
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    if (userRating) countRef.current = countRef.current + 1;
+  }, [userRating]);
+
   const isWatched = watched.map((mo) => mo.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
@@ -266,6 +271,7 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      countRatingDecisions: countRef.current,
     };
 
     onAddWatched(newWatchedMovie);
