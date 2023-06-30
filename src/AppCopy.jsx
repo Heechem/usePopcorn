@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 
 const average = (arr) =>
@@ -138,6 +138,11 @@ const NavBar = ({ children }) => {
 };
 
 const Search = ({ query, setQuery }) => {
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
   return (
     <input
       className="search"
@@ -145,6 +150,7 @@ const Search = ({ query, setQuery }) => {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 };
