@@ -9,7 +9,7 @@ const KEY = `199009af`;
 export default function App() {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedIt] = useState(null);
-  const { movies, isLoading, error } = useMovie(query, handleCloseMovie);
+  const { movies, isLoading, error } = useMovie(query);
 
   const [watched, setWatched] = useState(function () {
     const storedMovie = localStorage.getItem("watched");

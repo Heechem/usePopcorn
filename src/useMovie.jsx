@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 
 const KEY = `199009af`;
 
-export const useMovie = (query, callback) => {
+export const useMovie = (query) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    callback?.();
+    // callback?.();
 
     const controller = new AbortController();
 
