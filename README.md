@@ -1,6 +1,14 @@
 # Introduction to the project 
 
-### This is a project to learn how to use State and Props , first learning project 
+### This is a project where I am using Props and states and update them accordingly 
+
+## It's a movie app to search and rate the movies ,  using the OMDB API 
+
+![image](https://github.com/Heechem/usePopcorn/assets/117024247/6b0e9d6b-bd41-4c41-a382-e81b599281f2)
+
+![image](https://github.com/Heechem/usePopcorn/assets/117024247/80b570ea-c7fa-4345-b229-aa60dfd61a94)
+![image](https://github.com/Heechem/usePopcorn/assets/117024247/e5e1a4ba-a10f-400a-9323-b4ddb79158c4)
+![image](https://github.com/Heechem/usePopcorn/assets/117024247/de692146-314d-4daf-9ee1-73f53736593e)
 
 # Getting Started with Create React App
 
