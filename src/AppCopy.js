@@ -1,19 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import StarRating from "./StarRating";
-import { useMovie } from "./useMovie";
-import { useLocalStorageState } from "./useLocalStorageState";
-import { useKey } from "./useKey";
+import { useEffect, useRef, useState } from 'react';
+import StarRating from './StarRating';
+import { useMovie } from './useMovie';
+import { useLocalStorageState } from './useLocalStorageState';
+import { useKey } from './useKey';
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 const KEY = `199009af`;
 
 export default function App() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [selectedId, setSelectedIt] = useState(null);
   const { movies, isLoading, error } = useMovie(query);
 
-  const [watched, setWatched] = useLocalStorageState([], "watched");
+  const [watched, setWatched] = useLocalStorageState([], 'watched');
 
   function handleSelectMovie(id) {
     setSelectedIt((selectedId) => (id === selectedId ? null : id));
@@ -79,31 +79,31 @@ export default function App() {
 }
 
 const Loader = () => {
-  return <p className="loader">Loading ...</p>;
+  return <p className='loader'>Loading ...</p>;
 };
 
 const ErrorMEssage = ({ message }) => {
-  return <p className="error">❓ {message}</p>;
+  return <p className='error'>❓ {message}</p>;
 };
 
 const NavBar = ({ children }) => {
-  return <nav className="nav-bar">{children}</nav>;
+  return <nav className='nav-bar'>{children}</nav>;
 };
 
 const Search = ({ query, setQuery }) => {
   const inputEl = useRef(null);
 
-  useKey("Enter", function () {
+  useKey('Enter', function () {
     if (document.activeElement === inputEl.current) return;
     inputEl.current.focus();
-    setQuery("");
+    setQuery('');
   });
 
   return (
     <input
-      className="search"
-      type="text"
-      placeholder="Search movies..."
+      className='search'
+      type='text'
+      placeholder='Search movies...'
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       ref={inputEl}
@@ -113,8 +113,8 @@ const Search = ({ query, setQuery }) => {
 
 const Logo = () => {
   return (
-    <div className="logo">
-      <span role="img">🍿</span>
+    <div className='logo'>
+      <span role='img'>🍿</span>
       <h1>usePopcorn</h1>
     </div>
   );
@@ -122,25 +122,25 @@ const Logo = () => {
 
 const NumResults = ({ movies }) => {
   return (
-    <p className="num-results">
+    <p className='num-results'>
       Found <strong>{movies.length}</strong> results
     </p>
   );
 };
 
 const Main = ({ children }) => {
-  return <main className="main">{children}</main>;
+  return <main className='main'>{children}</main>;
 };
 
 const Box = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="box">
+    <div className='box'>
       <button
-        className="btn-toggle"
+        className='btn-toggle'
         onClick={() => setIsOpen((open) => !open)}
       >
-        {isOpen ? "–" : "+"}
+        {isOpen ? '–' : '+'}
       </button>
       {isOpen && children}
     </div>
@@ -149,7 +149,7 @@ const Box = ({ children }) => {
 
 const MovieList = ({ movies, onSelectMovie }) => {
   return (
-    <ul className="list list-movies">
+    <ul className='list list-movies'>
       {movies?.map((movie) => (
         <Movie
           movie={movie}
@@ -217,7 +217,7 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
       year,
       poster,
       imdbRating: Number(imdbRating),
-      runtime: Number(runtime.split(" ").at(0)),
+      runtime: Number(runtime.split(' ').at(0)),
       userRating,
       countRatingDecisions: countRef.current,
     };
@@ -226,7 +226,7 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     onCloseMovie();
   }
 
-  useKey("Escape", onCloseMovie);
+  useKey('Escape', onCloseMovie);
 
   useEffect(
     function () {
@@ -249,19 +249,19 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     document.title = `Movie | ${title}`;
 
     return () => {
-      document.title = "UsePopcorn";
+      document.title = 'UsePopcorn';
     };
   }, [title]);
 
   return (
-    <div className="details">
+    <div className='details'>
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <header>
             <button
-              className="btn-back"
+              className='btn-back'
               onClick={onCloseMovie}
             >
               &larr;
@@ -270,10 +270,10 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
               src={poster}
               alt={`Poster of the ${movie}`}
             />
-            <div className="details-overview">
+            <div className='details-overview'>
               <h2>{title}</h2>
               <p>
-                {released} &bull; {runtime}{" "}
+                {released} &bull; {runtime}{' '}
               </p>
               <p>{genre}</p>
               <p>
@@ -284,7 +284,7 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
           </header>
 
           <section>
-            <div className="rating">
+            <div className='rating'>
               {!isWatched ? (
                 <>
                   <StarRating
@@ -294,7 +294,7 @@ const SelectedMovie = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
                   />
                   {userRating > 0 && (
                     <button
-                      className="btn-add"
+                      className='btn-add'
                       onClick={handleAddWatched}
                     >
                       Add to list
@@ -324,7 +324,7 @@ const WatchedSummary = ({ watched }) => {
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
   return (
-    <div className="summary">
+    <div className='summary'>
       <h2>Movies you watched</h2>
       <div>
         <p>
@@ -350,7 +350,7 @@ const WatchedSummary = ({ watched }) => {
 
 const WatchedMovieList = ({ watched, onDeleteMovie }) => {
   return (
-    <ul className="list">
+    <ul className='list'>
       {watched.map((movie) => (
         <WatchedMovie
           movie={movie}
@@ -384,7 +384,7 @@ const WatchedMovie = ({ movie, onDeleteMovie }) => {
           <span>{movie.runtime} min</span>
         </p>
         <button
-          className="btn-delete"
+          className='btn-delete'
           onClick={() => onDeleteMovie(movie.imdbID)}
         >
           X
